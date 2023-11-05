@@ -1,2 +1,2 @@
-import * as mapper from './mapper';
-export default mapper;
+import { areObjectsEqual, mapObjects, deepMapObjects, objectFilter } from './mapper.js'
+export { areObjectsEqual, mapObjects, deepMapObjects, objectFilter };

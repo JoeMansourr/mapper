@@ -1,20 +1,17 @@
 {
-  "type": "commonjs",
-  "exports": {
-    ".": {
-      "import": "dist/index.js",
-      "require": "dist/index.js"
-    }
-  },
   "name": "data-object-mapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The data-object-mapper package is a versatile and lightweight client-side data mapping utility for JavaScript and TypeScript. It simplifies the process of mapping data between different object structures within web applications, offering an intuitive and customizable solution for handling data transformations.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "files": [
+    "lib/"
+  ],
   "scripts": {
     "test": "jest --detectOpenHandles",
     "build": "tsc",
-    "publish": "npm publish"
+    "publish": "npm run build && npm publish",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",

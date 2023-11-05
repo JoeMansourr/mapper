@@ -42,3 +42,6 @@ out/
 dist/
 .babelrc
 .github/workflows/
+lib/
+.github
+tsconfig-cjs.json

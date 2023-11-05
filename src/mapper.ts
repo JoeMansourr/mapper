@@ -7,7 +7,7 @@
  * @description This function iterates through the keys in the targetObject and checks if the sourceObject contains a property with the same key. If a matching key is found in both objects, the value in the targetObject is replaced with the value from the sourceObject. This operation effectively merges the properties from the sourceObject into the targetObject where keys match.
  */
 
-function mapObjects(sourceObject: any, ...targetObjects: any) {
+export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
   targetObjects.forEach((targetObject: any) => {
     for (let key in targetObject) {
       if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
@@ -26,7 +26,7 @@ function mapObjects(sourceObject: any, ...targetObjects: any) {
  * @description This function iterates through the keys in the sourceObject. If a key's value in both the sourceObject and targetObject is an object, it calls itself recursively to perform a deep property check within those nested objects. If the key's value is not an object or if it doesn't exist in the targetObject, the function merges the properties at that level. This operation effectively merges properties from the sourceObject into the targetObject while preserving nested structures.
  */
 
-function deepMapObjects(sourceObject: any, ...targetObjects: any) {
+export const deepMapObjects = (sourceObject: any, ...targetObjects: any) => {
   targetObjects.forEach((targetObject: any) => {
     for (let key in sourceObject) {
       if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
@@ -50,8 +50,8 @@ function deepMapObjects(sourceObject: any, ...targetObjects: any) {
  * @description This function compares two objects by serializing them to JSON and then comparing the resulting JSON strings. If the JSON representations of the objects are equal, it indicates that both objects have the same properties and values. This approach provides a simple and deep comparison of object equality.
  */
 
-function areObjectsEqual(sourceObject: {}, targetObject: {}) {
-    return JSON.stringify(sourceObject) === JSON.stringify(targetObject);
+export const areObjectsEqual = (sourceObject: {}, targetObject: {}) => {
+  return JSON.stringify(sourceObject) === JSON.stringify(targetObject);
 }
 
 /**
@@ -64,7 +64,7 @@ function areObjectsEqual(sourceObject: {}, targetObject: {}) {
  * @description This function recursively filters an object to remove properties with values of null, undefined, or an empty string (''). It creates a new object, copying properties from the source object to the target object, excluding unwanted properties. For nested objects, the function is called recursively to filter them as well.
  */
 
-function objectFilter(sourceObject: any, targetObject: any = {}) {
+export const objectFilter = (sourceObject: any, targetObject: any = {}) => {
   for (let key in sourceObject) {
     if (sourceObject[key] !== null && sourceObject[key] !== '' && typeof sourceObject[key] !== 'undefined') {
       if (typeof sourceObject[key] === 'object' && !Array.isArray(sourceObject[key])) {
@@ -82,5 +82,3 @@ function objectFilter(sourceObject: any, targetObject: any = {}) {
   }
   return targetObject;
 }
-
-export { mapObjects, deepMapObjects, areObjectsEqual, objectFilter };
