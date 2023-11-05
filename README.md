@@ -1,24 +1,24 @@
-# Mapper
+# Data Object Mapper
 
-**Mapper** is an npm package designed to simplify the process of mapping properties between objects in JavaScript. It provides a set of functions that allow you to easily map properties from one object to another, whether you need shallow or deep property mapping.
+**Data Object Mapper** is an npm package designed to simplify the process of mapping properties between objects in JavaScript. It provides a set of functions that allow you to easily map properties from one object to another, whether you need shallow or deep property mapping.
 
 ## Installation
 
-You can install Mapper via npm or yarn:
+You can install Data Object Mapper via npm or yarn:
 
 ```bash
 # Installation
-npm install mapper
+npm install data-object-mapper
 or
-yarn add mapper
+yarn add data-object-mapper
 ```
 
 # Usage:
-To use Mapper, you can import the functions you need and integrate them into your project. Below are some examples of how to use Mapper:
+To use Data Object Mapper, you can import the functions you need and integrate them into your project. Below are some examples of how to use Data Object Mapper:
 
 ## Shallow Property Mapping
 ```
-import { mapObjects } from 'mapper';
+import { mapObjects } from 'data-object-mapper';
 
 const sourceObject = {
   name: 'John Doe',
@@ -38,7 +38,7 @@ console.log(targetObject);
 
 ## Deep Property Mapping
 ```
-import { deepMapObjects } from 'mapper';
+import { deepMapObjects } from 'data-object-mapper';
 
 const sourceObject = {
   user: {
@@ -73,7 +73,7 @@ Before using Mapper, make sure to import the functions you need and define your 
 
 # Testing
 
-You can run tests for Mapper using a testing framework such as Jest:
+You can run tests for Data Object Mapper using a testing framework such as Jest:
 
 ```
 npm test

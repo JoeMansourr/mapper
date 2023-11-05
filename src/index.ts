@@ -1,2 +1,2 @@
-import * as mapster from './mapper';
-export default mapster;
+import * as mapper from './mapper';
+export default mapper;
