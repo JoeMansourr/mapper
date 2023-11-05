@@ -8,14 +8,25 @@
  */
 
 export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
-  targetObjects.forEach((targetObject: any) => {
+  if (targetObjects.length === 1) {
+    const targetObject = targetObjects[0];
     for (let key in targetObject) {
       if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
         targetObject[key] = sourceObject[key];
       }
     }
-  });
-}
+    return targetObject;
+  } else {
+    targetObjects.forEach((targetObject: any) => {
+      for (let key in targetObject) {
+        if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
+          targetObject[key] = sourceObject[key];
+        }
+      }
+    });
+    return targetObjects;
+  }
+};
 
 /**
  * Recursively merge properties from the source object into the target object, preserving nested structures.
@@ -27,18 +38,39 @@ export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
  */
 
 export const deepMapObjects = (sourceObject: any, ...targetObjects: any) => {
-  targetObjects.forEach((targetObject: any) => {
+  if (targetObjects.length === 1) {
+    const targetObject = targetObjects[0];
     for (let key in sourceObject) {
       if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
-        if (typeof sourceObject[key] === 'object' && typeof targetObject[key] === 'object') {
+        if (
+          typeof sourceObject[key] === "object" &&
+          typeof targetObject[key] === "object"
+        ) {
           deepMapObjects(sourceObject[key], targetObject[key]);
         } else {
           targetObject[key] = sourceObject[key];
         }
       }
     }
-  });
-}
+    return targetObject;
+  } else {
+    targetObjects.forEach((targetObject: any) => {
+      for (let key in sourceObject) {
+        if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
+          if (
+            typeof sourceObject[key] === "object" &&
+            typeof targetObject[key] === "object"
+          ) {
+            deepMapObjects(sourceObject[key], targetObject[key]);
+          } else {
+            targetObject[key] = sourceObject[key];
+          }
+        }
+      }
+    });
+    return targetObjects;
+  }
+};
 
 /**
  * Compare two objects for equality by checking if they have the same properties and values.
@@ -52,7 +84,7 @@ export const deepMapObjects = (sourceObject: any, ...targetObjects: any) => {
 
 export const areObjectsEqual = (sourceObject: {}, targetObject: {}) => {
   return JSON.stringify(sourceObject) === JSON.stringify(targetObject);
-}
+};
 
 /**
  * Recursively filter an object to remove properties with values of null, undefined, or an empty string ('').
@@ -66,8 +98,15 @@ export const areObjectsEqual = (sourceObject: {}, targetObject: {}) => {
 
 export const objectFilter = (sourceObject: any, targetObject: any = {}) => {
   for (let key in sourceObject) {
-    if (sourceObject[key] !== null && sourceObject[key] !== '' && typeof sourceObject[key] !== 'undefined') {
-      if (typeof sourceObject[key] === 'object' && !Array.isArray(sourceObject[key])) {
+    if (
+      sourceObject[key] !== null &&
+      sourceObject[key] !== "" &&
+      typeof sourceObject[key] !== "undefined"
+    ) {
+      if (
+        typeof sourceObject[key] === "object" &&
+        !Array.isArray(sourceObject[key])
+      ) {
         // Recursively filter nested objects
         targetObject[key] = {};
         objectFilter(sourceObject[key], targetObject[key]);
@@ -81,4 +120,4 @@ export const objectFilter = (sourceObject: any, targetObject: any = {}) => {
     }
   }
   return targetObject;
-}
+};
