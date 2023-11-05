@@ -6,9 +6,9 @@
       "require": "dist/index.js"
     }
   },
-  "name": "mapster",
+  "name": "data-object-mapper",
   "version": "1.0.0",
-  "description": "The mapster package is a versatile and lightweight client-side data mapping utility for JavaScript and TypeScript. It simplifies the process of mapping data between different object structures within web applications, offering an intuitive and customizable solution for handling data transformations.",
+  "description": "The data-object-mapper package is a versatile and lightweight client-side data mapping utility for JavaScript and TypeScript. It simplifies the process of mapping data between different object structures within web applications, offering an intuitive and customizable solution for handling data transformations.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -24,7 +24,8 @@
     "mapper",
     "object-mapper",
     "client-mapper",
-    "mapster"
+    "mapster",
+    "data-object-mapper"
   ],
   "author": "Joe Mansour",
   "license": "MIT",
