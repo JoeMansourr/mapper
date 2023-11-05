@@ -2,21 +2,22 @@
  * Merge properties from the source object into the target object based on matching keys.
  *
  * @param sourceObject {object} - The object containing properties to be merged into the target.
- * @param targetObjects {object} - The objects into which properties will be merged.
+ * @param targetObjects {object} - The object into which properties will be merged.
  *
  * @description This function iterates through the keys in the targetObject and checks if the sourceObject contains a property with the same key. If a matching key is found in both objects, the value in the targetObject is replaced with the value from the sourceObject. This operation effectively merges the properties from the sourceObject into the targetObject where keys match.
  */
 
-export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
-  for (const targetObject of targetObjects) {
-    for (const key in sourceObject) {
-      if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
-        targetObject[key] = sourceObject[key];
-      }
+export const mapObjects = (sourceObject: any, targetObject: any) => {
+  // Create a new object to store the merged properties
+  const mergedObject = { ...targetObject }; // Create a shallow copy of the target object
+
+  for (const key in sourceObject) {
+    if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
+      mergedObject[key] = sourceObject[key];
     }
   }
-  const result = targetObjects.length === 1 ? targetObjects[0] : targetObjects;
-  return result;
+
+  return mergedObject;
 };
 
 /**
@@ -28,23 +29,31 @@ export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
  * @description This function iterates through the keys in the sourceObject. If a key's value in both the sourceObject and targetObject is an object, it calls itself recursively to perform a deep property check within those nested objects. If the key's value is not an object or if it doesn't exist in the targetObject, the function merges the properties at that level. This operation effectively merges properties from the sourceObject into the targetObject while preserving nested structures.
  */
 
-export const deepMapObjects = (sourceObject: any, ...targetObjects: any) => {
-  const modifiedObject = sourceObject;
+export const deepMapObjects = (sourceObject: any, targetObject: any) => {
+  if (typeof sourceObject !== 'object' || typeof targetObject !== 'object') {
+    // If either sourceObject or targetObject is not an object, return the sourceObject
+    return sourceObject;
+  }
 
-  for (const targetObject of targetObjects) {
-    for (const key in sourceObject) {
-      if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
-        if (typeof sourceObject[key] === "object" && !Array.isArray(sourceObject[key])) {
-          modifiedObject[key] = deepMapObjects(sourceObject[key], targetObject[key]);
-        } else {
-          targetObject[key] = sourceObject[key];
-        }
+  // Create a new object to store the merged properties
+  const mergedObject: any = { ...targetObject }; // Create a shallow copy of the target object
+
+  for (const key in sourceObject) {
+    if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
+      if (
+        typeof sourceObject[key] === 'object' &&
+        typeof targetObject[key] === 'object'
+      ) {
+        // Recursively merge nested objects
+        mergedObject[key] = deepMapObjects(sourceObject[key], targetObject[key]);
+      } else {
+        // Merge other properties
+        mergedObject[key] = sourceObject[key];
       }
     }
   }
 
-  const result = targetObjects.length === 1 ? targetObjects[0] : targetObjects;
-  return result;
+  return mergedObject;
 };
 
 /**

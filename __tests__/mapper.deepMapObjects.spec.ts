@@ -1,38 +1,62 @@
 import { deepMapObjects } from "../src/mapper";
 
-describe('deepMapObjects', () => {
-  it('should copy properties from sourceObject to targetObject', () => {
+describe("deepMapObjects", () => {
+  it("should deeply merge properties of two objects", () => {
     const sourceObject = {
-      name: 'John',
-      age: 30,
-      city: 'New York',
-      address: {
-        street: 'Broadway',
-        number: 11,
+      person: {
+        name: "Alice",
+        age: 30,
       },
     };
 
     const targetObject = {
-      name: 'Alice',
-      country: 'USA',
-      age: 0, // Add the properties to the targetObject
-      city: '',
-      address: {
-        street: '',
-        number: 0,
+      person: {
+        name: "Bob",
+        city: "New York",
       },
     };
 
-    deepMapObjects(sourceObject, targetObject);    
+    const mergedObject = deepMapObjects(sourceObject, targetObject);
 
-    // Verify that properties from sourceObject are copied to targetObject
-    expect(targetObject.name).toBe('John');
-    expect(targetObject.age).toBe(30);
-    expect(targetObject.city).toBe('New York');
-    expect(targetObject.address.street).toBe('Broadway');
-    expect(targetObject.address.number).toBe(11);
+    expect(mergedObject).toEqual({
+      person: {
+        name: "Alice",
+        age: 30,
+        city: "New York",
+      },
+    });
+  });
 
-    // Verify that properties not present in sourceObject remain unchanged in targetObject
-    expect(targetObject.country).toBe('USA');
+  it("should not merge non-object properties", () => {
+    const sourceObject = {
+      name: "Alice",
+      age: 30,
+    };
+
+    const targetObject = {
+      name: "Bob",
+      age: 25,
+    };
+
+    const mergedObject = deepMapObjects(sourceObject, targetObject);
+
+    expect(mergedObject).toEqual({
+      name: "Alice",
+      age: 30,
+    });
+  });
+
+  it("should handle undefined target object", () => {
+    const sourceObject = {
+      name: "Alice",
+      age: 30,
+    };
+
+    const mergedObject = deepMapObjects(sourceObject, undefined);
+
+    expect(mergedObject).toEqual({
+      name: "Alice",
+      age: 30,
+    });
   });
 });

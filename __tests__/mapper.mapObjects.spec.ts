@@ -1,57 +1,23 @@
 import { mapObjects } from '../src/mapper';
 
 describe('mapObjects', () => {
-  it('should merge properties from the source object into the target object', () => {
+  it('should merge properties of two objects', () => {
     const sourceObject = {
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      age: 30
+      name: 'Alice',
+      age: 30,
     };
 
     const targetObject = {
-      occupation: 'Software Engineer'
+      name: 'Bob',
+      city: 'New York',
     };
 
     const mergedObject = mapObjects(sourceObject, targetObject);
 
     expect(mergedObject).toEqual({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      age: 30,
-      occupation: 'Software Engineer'
+      name: 'Alice',
+      age: 30,      
+      city: 'New York',
     });
-  });
-
-  it('should merge properties from the source object into multiple target objects', () => {
-    const sourceObject = {
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      age: 30
-    };
-
-    const targetObject1 = {
-      occupation: 'Software Engineer'
-    };
-
-    const targetObject2 = {
-      city: 'New York'
-    };
-
-    const mergedObjects = mapObjects(sourceObject, targetObject1, targetObject2);
-
-    expect(mergedObjects).toEqual([
-      {
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        age: 30,
-        occupation: 'Software Engineer'
-      },
-      {
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        age: 30,
-        city: 'New York'
-      }
-    ]);
   });
 });
