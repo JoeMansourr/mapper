@@ -8,25 +8,15 @@
  */
 
 export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
-  if (targetObjects.length === 1) {
-    const targetObject = targetObjects[0];
-    for (let key in targetObject) {
+  for (const targetObject of targetObjects) {
+    for (const key in sourceObject) {
       if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
         targetObject[key] = sourceObject[key];
       }
     }
-    return targetObject;
-  } else {
-    const mappedData: any = {};
-    targetObjects.forEach((targetObject: any) => {
-      for (let key in targetObject) {
-        if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
-          mappedData[key] = sourceObject[key];
-        }
-      }
-    });
-    return mappedData;
   }
+  const result = targetObjects.length === 1 ? targetObjects[0] : targetObjects;
+  return result;
 };
 
 /**
@@ -39,47 +29,22 @@ export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
  */
 
 export const deepMapObjects = (sourceObject: any, ...targetObjects: any) => {
-  if (targetObjects.length === 1) {
-    const targetObject = targetObjects[0];
+  const modifiedObject = sourceObject;
 
+  for (const targetObject of targetObjects) {
     for (const key in sourceObject) {
       if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
-        if (
-          typeof sourceObject[key] === "object" &&
-          typeof targetObject[key] === "object"
-        ) {
-          // Recursively merge nested objects
-          targetObject[key] = deepMapObjects(sourceObject[key], targetObject[key]);
+        if (typeof sourceObject[key] === "object" && !Array.isArray(sourceObject[key])) {
+          modifiedObject[key] = deepMapObjects(sourceObject[key], targetObject[key]);
         } else {
-          // Assign primitive values
           targetObject[key] = sourceObject[key];
         }
       }
     }
-
-    // Return the modified target object
-    return targetObject;
-  } else {
-    targetObjects.forEach((targetObject: any) => {
-      for (const key in sourceObject) {
-        if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
-          if (
-            typeof sourceObject[key] === "object" &&
-            typeof targetObject[key] === "object"
-          ) {
-            // Recursively merge nested objects
-            targetObject[key] = deepMapObjects(sourceObject[key], targetObject[key]);
-          } else {
-            // Assign primitive values
-            targetObject[key] = sourceObject[key];
-          }
-        }
-      }
-    });
-
-    // Return the array of modified target objects
-    return targetObjects;
   }
+
+  const result = targetObjects.length === 1 ? targetObjects[0] : targetObjects;
+  return result;
 };
 
 /**

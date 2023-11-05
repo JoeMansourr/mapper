@@ -23,7 +23,7 @@ describe('deepMapObjects', () => {
       },
     };
 
-    deepMapObjects(sourceObject, targetObject);
+    deepMapObjects(sourceObject, targetObject);    
 
     // Verify that properties from sourceObject are copied to targetObject
     expect(targetObject.name).toBe('John');
