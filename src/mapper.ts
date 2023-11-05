@@ -17,14 +17,15 @@ export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
     }
     return targetObject;
   } else {
+    const mappedData: any = {};
     targetObjects.forEach((targetObject: any) => {
       for (let key in targetObject) {
         if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
-          targetObject[key] = sourceObject[key];
+          mappedData[key] = sourceObject[key];
         }
       }
     });
-    return targetObjects;
+    return mappedData;
   }
 };
 
@@ -40,34 +41,43 @@ export const mapObjects = (sourceObject: any, ...targetObjects: any) => {
 export const deepMapObjects = (sourceObject: any, ...targetObjects: any) => {
   if (targetObjects.length === 1) {
     const targetObject = targetObjects[0];
-    for (let key in sourceObject) {
+
+    for (const key in sourceObject) {
       if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
         if (
           typeof sourceObject[key] === "object" &&
           typeof targetObject[key] === "object"
         ) {
-          deepMapObjects(sourceObject[key], targetObject[key]);
+          // Recursively merge nested objects
+          targetObject[key] = deepMapObjects(sourceObject[key], targetObject[key]);
         } else {
+          // Assign primitive values
           targetObject[key] = sourceObject[key];
         }
       }
     }
+
+    // Return the modified target object
     return targetObject;
   } else {
     targetObjects.forEach((targetObject: any) => {
-      for (let key in sourceObject) {
+      for (const key in sourceObject) {
         if (Object.prototype.hasOwnProperty.call(sourceObject, key)) {
           if (
             typeof sourceObject[key] === "object" &&
             typeof targetObject[key] === "object"
           ) {
-            deepMapObjects(sourceObject[key], targetObject[key]);
+            // Recursively merge nested objects
+            targetObject[key] = deepMapObjects(sourceObject[key], targetObject[key]);
           } else {
+            // Assign primitive values
             targetObject[key] = sourceObject[key];
           }
         }
       }
     });
+
+    // Return the array of modified target objects
     return targetObjects;
   }
 };
