@@ -1,0 +1,43 @@
+{
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "import": "dist/index.js",
+      "require": "dist/index.js"
+    }
+  },
+  "name": "mapster",
+  "version": "1.0.0",
+  "description": "The mapster package is a versatile and lightweight client-side data mapping utility for JavaScript and TypeScript. It simplifies the process of mapping data between different object structures within web applications, offering an intuitive and customizable solution for handling data transformations.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest --detectOpenHandles",
+    "build": "tsc",
+    "publish": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoeMansourr/mapper.git"
+  },
+  "keywords": [
+    "mapper",
+    "object-mapper",
+    "client-mapper",
+    "mapster"
+  ],
+  "author": "Joe Mansour",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JoeMansourr/mapper/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@types/jest": "^29.5.7",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
